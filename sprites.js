@@ -23,7 +23,7 @@ class Vector
 
 class Entity
 {
-    constructor(position, ctx, img, width, height, mass, step)
+    constructor(position, ctx, img, width, height, mass)
     {
         this.position = position;
         this.img = new Image();
@@ -33,7 +33,8 @@ class Entity
         this.width = width;
         this.height = height;
         this.mass = mass;
-        this.step = step;
+        this.vx = 0;
+        this.vy = 0;
     }
 
     draw()
@@ -52,9 +53,15 @@ class Entity
         return false;
     }
 
-    moveLeft()
+    jump()
     {
         
+    }
+
+    move()
+    {
+        this.position.x += this.vx;
+        this.position.y += this.vy;
     }
 }
 
@@ -62,7 +69,7 @@ class Player extends Entity
 {
     constructor(position, ctx, width, height)
     {
-        super(position, ctx, "images/meat.png", width, height, 1, 5);
+        super(position, ctx, "images/meat.png", width, height, 1);
     }
 }
 
