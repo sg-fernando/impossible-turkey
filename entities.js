@@ -1,5 +1,7 @@
+
 class Vector
 {
+    // plan to use this class for easier enemy ai calculations
     constructor(x,y)
     {
         this.x = x;
@@ -23,7 +25,8 @@ class Vector
 
 class Entity
 {
-    constructor(position, ctx, img, width, height, mass)
+    // general entity class for user and enemies
+    constructor(position, ctx, img, width, height, mass, step)
     {
         this.position = position;
         this.img = new Image();
@@ -32,9 +35,12 @@ class Entity
 
         this.width = width;
         this.height = height;
+        this.step = step;
         this.mass = mass;
         this.vx = 0;
         this.vy = 0;
+        this.ay = 0;
+        this.jumpMultiplier = 3;
     }
 
     draw()
@@ -55,13 +61,16 @@ class Entity
 
     jump()
     {
-        
+        console.log("JUMP");
+        this.vy -= this.step*this.jumpMultiplier;
+        this.ay = gravity;
     }
 
     move()
     {
         this.position.x += this.vx;
         this.position.y += this.vy;
+        this.vy += this.ay;
     }
 }
 
@@ -69,7 +78,16 @@ class Player extends Entity
 {
     constructor(position, ctx, width, height)
     {
-        super(position, ctx, "images/meat.png", width, height, 1);
+        super(position, ctx, "images/meat.png", width, height, 2, 5);
+        this.jumpCount = 0;
+        this.jumpLimit = 2;
+    }
+
+    canJump()
+    {
+        // TODO add 
+        if (this.jumpCount < this.jumpLimit) return true;
+        return false;
     }
 }
 
