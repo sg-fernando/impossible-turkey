@@ -85,8 +85,6 @@ class SpriteAnimation
             this.current--;
         }
     }
-
-
 }
 
 class Entity
