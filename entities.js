@@ -105,6 +105,7 @@ class Entity
         this.mass = mass;
         this.vx = 0;
         this.vy = 0;
+        this.ax = 0;
         this.ay = 0;
         this.jumpMultiplier = jump;
 
@@ -160,6 +161,7 @@ class Entity
         this.position.x += this.vx;
         this.position.y += this.vy;
         this.vy += this.ay;
+        this.vx += this.ax;
     }
 }
 
@@ -170,7 +172,7 @@ class Player extends Entity
         super(position, ctx, "images/player.png", 60, 60, 2, 5, 3);
         this.jumpCount = 0;
         this.jumpLimit = 2;
-        this.walkAnimation = new SpriteAnimation("player-walking", [1,8], true)
+        this.walkAnimation = new SpriteAnimation("player-moving", [1,8], true)
     }
 
     canJump()
