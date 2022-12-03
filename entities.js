@@ -152,10 +152,10 @@ class Entity
             this.walkAnimation.previousFrame();
             this.img.src = this.walkAnimation.src;
         }
-        else if (this.vx == 0)
-        {
+        // else if (this.vx == 0)
+        // {
             // this.img.src = this.mainImgSrc;
-        }
+        // }
     }
 
     move()
