@@ -31,6 +31,8 @@ class CollisionBox
     {
         if (this.top(other))
         {
+            // FIXME goes to top of surface straight away
+            // nee to account for bottom and sides so that it doens't teleport to top if hit on side or bottom
             other.vy = 0;
             other.position.y = this.parent.position.y - other.height;
             other.jumpCount = 0;
