@@ -134,7 +134,6 @@ class Entity
     jump()
     {
         // maybe add check of velocity so that can double jump higher when at apex of first jump
-        console.log("JUMP");
         this.vy = 0;
         this.vy -= this.step*this.jumpMultiplier;
         this.ay = gravity;
