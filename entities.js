@@ -23,11 +23,79 @@ class Vector
     }
 }
 
+class SpriteAnimation
+{
+    constructor(inner, range, onTwos)
+    {
+        // using animations folder
+        this.outer = "animations";
+        this.inner = inner;
+        this.begin = range[0];
+        this.end = range[1];
+        this.current = this.begin;
+
+        this.onTwos = onTwos;
+        this.timing = 2;
+        this.timingCurrent = 1;
+    }
+
+    get src()
+    {
+        return this.outer + "/" + this.inner + "/" + this.current + ".png";
+    }
+
+    nextFrame()
+    {
+        if (this.onTwos)
+        {
+            this.timingCurrent++;
+            if (this.timingCurrent > this.timing)
+            {
+                this.timingCurrent = 1;
+                return;
+            }
+        }
+        if (this.current == this.end)
+        {
+            this.current = this.begin;
+        }
+        else
+        {
+            this.current++;
+        }
+    }
+
+    previousFrame()
+    {
+        if (this.onTwos)
+        {
+            this.timingCurrent++;
+            if (this.timingCurrent > this.timing)
+            {
+                this.timingCurrent = 1;
+                return;
+            }
+        }
+        if (this.current == this.begin)
+        {
+            this.current = this.end;
+        }
+        else
+        {
+            this.current--;
+        }
+    }
+
+
+}
+
 class Entity
 {
     // general entity class for user and enemies
     constructor(position, ctx, img, width, height, mass, step)
     {
+        this.mainImgSrc = img;
+
         this.position = position;
         this.img = new Image();
         this.img.src = img;
@@ -41,6 +109,10 @@ class Entity
         this.vy = 0;
         this.ay = 0;
         this.jumpMultiplier = 3;
+
+        this.walkAnimation;
+        this.jumpAnimation;
+        this.standAnimation;
     }
 
     draw()
@@ -61,9 +133,29 @@ class Entity
 
     jump()
     {
+        // maybe add check of velocity so that can double jump higher when at apex of first jump
         console.log("JUMP");
+        this.vy = 0;
         this.vy -= this.step*this.jumpMultiplier;
         this.ay = gravity;
+    }
+
+    animate()
+    {
+        if (this.vx > 0)
+        {
+            this.walkAnimation.nextFrame();
+            this.img.src = this.walkAnimation.src;
+        }
+        else if (this.vx < 0)
+        {
+            this.walkAnimation.previousFrame();
+            this.img.src = this.walkAnimation.src;
+        }
+        else if (this.vx == 0)
+        {
+            // this.img.src = this.mainImgSrc;
+        }
     }
 
     move()
@@ -76,16 +168,16 @@ class Entity
 
 class Player extends Entity
 {
-    constructor(position, ctx, width, height)
+    constructor(position, ctx)
     {
-        super(position, ctx, "images/meat.png", width, height, 2, 5);
+        super(position, ctx, "images/player.png", 50, 50, 2, 5);
         this.jumpCount = 0;
         this.jumpLimit = 2;
+        this.walkAnimation = new SpriteAnimation("player-walking", [1,8], true)
     }
 
     canJump()
     {
-        // TODO add 
         if (this.jumpCount < this.jumpLimit) return true;
         return false;
     }
