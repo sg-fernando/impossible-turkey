@@ -8,7 +8,7 @@ class CollisionBox
         this.parent = parent;
     }
 
-    top(other)
+    collides(other)
     {
         if (this.parent.position.y + this.parent.height >= other.position.y && 
             this.parent.position.y <= other.position.y + other.height &&
@@ -19,20 +19,34 @@ class CollisionBox
         return false;
     }
 
-    side(other)
-    {
-        if (this.parent.position.x + this.parent.width >= other.position.x && 
-            this.parent.position.x <= other.position.x + other.width) { return true; }
-
-        return false;
-    }
-
     checkCollision(other)
     {
-        if (this.top(other))
+        if (this.collides(other))
         {
             // FIXME goes to top of surface straight away
             // nee to account for bottom and sides so that it doens't teleport to top if hit on side or bottom
+        
+            // if (other.position.x <= this.parent.position.x + this.parent.width &&
+            //     other.position.x + other.width > this.parent.position.x &&
+            //     other.position.y > this.parent.position.y)
+            // {
+            //     other.position.x = this.parent.position.x + this.parent.width;
+            // }
+            // if (this.parent.position.x + this.parent.width >= other.position.x)
+            // {
+            //     console.log("right");
+            // }
+            // else if (this.parent.position.x <= other.position.x + other.width)
+            // {
+            //     console.log("left");
+            // }
+            // else if (this.parent.position.y + this.parent.height >= other.position.y)
+            // {
+            //     console.log("bottom");
+            // }
+            // else
+            // {
+            // }
             other.vy = 0;
             other.position.y = this.parent.position.y - other.height;
             other.jumpCount = 0;
