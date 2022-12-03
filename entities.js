@@ -119,17 +119,6 @@ class Entity
         ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height);
     }
 
-    checkCollision(other)
-    {
-        if (this.position.x + this.width >= other.position.x && 
-            this.position.x <= other.position.x + other.width) { return true; }
-
-        if (this.position.y + this.height >= other.position.y && 
-            this.position.y <= other.position.y + other.height) { return true; }
-
-        return false;
-    }
-
     jump()
     {
         // maybe add check of velocity so that can double jump higher when at apex of first jump

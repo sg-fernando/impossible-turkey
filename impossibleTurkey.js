@@ -6,6 +6,7 @@ const ctx = canvas.getContext("2d");
 const gravity = 1;
 
 const player = new Player(new Vector(0,0), ctx);
+const surface = new Surface(new Vector(100,300), ctx, "images/square.jpg", 500, 100);
 
 function update()
 {
@@ -13,6 +14,10 @@ function update()
     player.move();
     player.draw();
     player.animate();
+
+    surface.draw();
+
+    surface.collision.checkCollision(player);
 
 
     // update canvas
