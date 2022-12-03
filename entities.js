@@ -90,7 +90,7 @@ class SpriteAnimation
 class Entity
 {
     // general entity class for user and enemies
-    constructor(position, ctx, img, width, height, mass, step)
+    constructor(position, ctx, img, width, height, mass, step, jump)
     {
         this.mainImgSrc = img;
 
@@ -106,7 +106,7 @@ class Entity
         this.vx = 0;
         this.vy = 0;
         this.ay = 0;
-        this.jumpMultiplier = 3;
+        this.jumpMultiplier = jump;
 
         this.walkAnimation;
         this.jumpAnimation;
@@ -167,7 +167,7 @@ class Player extends Entity
 {
     constructor(position, ctx)
     {
-        super(position, ctx, "images/player.png", 50, 50, 2, 5);
+        super(position, ctx, "images/player.png", 60, 60, 2, 5, 3);
         this.jumpCount = 0;
         this.jumpLimit = 2;
         this.walkAnimation = new SpriteAnimation("player-walking", [1,8], true)
