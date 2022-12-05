@@ -5,15 +5,29 @@ class CollisionBox
         this.offset = offset;
         this.width = width;
         this.height = height;
-        this.parent = parent;
+        // this.parent = parent;
+        this.position = parent.position;
+        this.height = parent.height;
+        this.width = parent.width;
     }
 
-    collides(other)
+    top(other)
     {
-        if (this.parent.position.y + this.parent.height >= other.position.y && 
-            this.parent.position.y <= other.position.y + other.height &&
-            this.parent.position.x + this.parent.width >= other.position.x &&
-            this.parent.position.x <= other.position.x + other.width
+        if (this.position.y + this.height >= other.position.y && 
+            this.position.y <= other.position.y + other.height &&
+            this.position.x + this.width >= other.position.x &&
+            this.position.x <= other.position.x + other.width
+            ) { return true; }
+
+        return false;
+    }
+
+    right(other)
+    {
+        if (this.position.y + this.height >= other.position.y && 
+            this.position.y <= other.position.y + other.height &&
+            this.position.x + this.width >= other.position.x &&
+            this.position.x <= other.position.x + other.width
             ) { return true; }
 
         return false;
@@ -21,34 +35,11 @@ class CollisionBox
 
     checkCollision(other)
     {
-        if (this.collides(other))
+        if (this.top(other))
         {
             // FIXME goes to top of surface straight away
             // nee to account for bottom and sides so that it doens't teleport to top if hit on side or bottom
-        
-            // if (other.position.x <= this.parent.position.x + this.parent.width &&
-            //     other.position.x + other.width > this.parent.position.x &&
-            //     other.position.y > this.parent.position.y)
-            // {
-            //     other.position.x = this.parent.position.x + this.parent.width;
-            // }
-            // if (this.parent.position.x + this.parent.width >= other.position.x)
-            // {
-            //     console.log("right");
-            // }
-            // else if (this.parent.position.x <= other.position.x + other.width)
-            // {
-            //     console.log("left");
-            // }
-            // else if (this.parent.position.y + this.parent.height >= other.position.y)
-            // {
-            //     console.log("bottom");
-            // }
-            // else
-            // {
-            // }
             other.vy = 0;
-            other.position.y = this.parent.position.y - other.height;
             other.jumpCount = 0;
         }
     }
