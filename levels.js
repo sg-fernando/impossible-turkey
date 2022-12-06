@@ -97,7 +97,7 @@ class Camera
     update()
     {
         console.log(player.position);
-        let xOffset = 15;
+        let xOffset = 5;
         let yOffset = 10;
         if (player.position.x+(player.width/2) > canvas.width/2+xOffset)
         {
