@@ -89,8 +89,7 @@ class SpriteAnimation
 
 class Entity
 {
-    // general entity class for user and enemies
-    constructor(position, ctx, img, width, height, mass, step, jump)
+    constructor(position, ctx, img, width, height)
     {
         this.mainImgSrc = img;
 
@@ -101,6 +100,20 @@ class Entity
 
         this.width = width;
         this.height = height;
+    }
+
+    draw()
+    {
+        ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+class Movable extends Entity
+{
+    // general entity class for user and enemies
+    constructor(position, ctx, img, width, height, mass, step, jump)
+    {
+        super(position, ctx, img, width, height);
         this.step = step;
         this.mass = mass;
         this.vx = 0;
@@ -114,11 +127,6 @@ class Entity
         this.surfaces = [];
     }
 
-    draw()
-    {
-        ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height);
-    }
-
     jump()
     {
         // maybe add check of velocity so that can double jump higher when at apex of first jump
@@ -126,7 +134,7 @@ class Entity
         this.vy -= this.step*this.jumpMultiplier;
     }
 
-    animate()
+    animateMove()
     {
         if (this.vx > 0)
         {
@@ -140,18 +148,17 @@ class Entity
         }
     }
 
-    checkCollision(x, y)
+    surfaceCollision(x, y)
     {
-        let tempPlayer = new Object();
-        tempPlayer.position = new Vector(x, y);
-        tempPlayer.width = this.width;
-        tempPlayer.height = this.height;
+        let tempEntity = new Object();
+        tempEntity.position = new Vector(x, y);
+        tempEntity.width = this.width;
+        tempEntity.height = this.height;
 
         for (let i = 0; i < this.surfaces.length; i++)
         {
-            if (this.surfaces[i].collision.collides(tempPlayer))
+            if (this.surfaces[i].collision.collides(tempEntity))
             {
-                this.jumpCount = 0;
                 return true;
             }
         }
@@ -161,24 +168,29 @@ class Entity
     move()
     {
         // FIXME dampening occurs at end of jump
-        if (this.checkCollision(this.position.x + this.vx, this.position.y))
+        if (this.surfaceCollision(this.position.x + this.vx, this.position.y))
         {
             this.vx = 0;
         }
-        if (this.checkCollision(this.position.x, this.position.y + this.vy))
+        if (this.surfaceCollision(this.position.x, this.position.y + this.vy))
         {
+            this.jumpCount = 0;
             this.vy = 0;
         }
         this.position.x += this.vx;
         this.position.y += this.vy;
         this.vy += this.ay;
+    }
 
+    update()
+    {
+        this.move();
         this.draw();
-        this.animate();
+        this.animateMove();
     }
 }
 
-class Player extends Entity
+class Player extends Movable
 {
     constructor(position, ctx)
     {
@@ -202,17 +214,28 @@ class Player extends Entity
 
     }
 
+    respawn()
+    {
+        this.position = new Vector(50,0);
+        this.vy = 0;
+    }
+
     loseLife()
     {
-        this.lives--;
-        if (this.lives == 0)
+        if (this.lives > 0)
+        {
+            this.lives--;
+            this.respawn();
+        }
+        else
         {
             // TODO game over
+            console.log("game over");
         }
     }
 }
 
-class Turkey extends Entity
+class Turkey extends Movable
 {
     constructor(position, ctx, step)
     {
@@ -223,6 +246,12 @@ class Turkey extends Entity
         this.moveAnimation = new SpriteAnimation("turkey-moving", [1,9], true)
         this.direction = 1;
         this.vx = this.step;
+        let offset = 10;
+        this.collision = new CollisionBox(
+            new Vector(this.position.x + offset, this.position.y + offset), 
+            this.width-(offset*2), 
+            this.height-(offset*2)
+        );
     }
 
     randomTurkey()
@@ -238,5 +267,49 @@ class Turkey extends Entity
             this.direction *= -1;
             this.vx = this.direction*this.step;
         }
+        this.collision.updatePosition(this.position);
+    }
+
+    checkHit()
+    {
+        if (this.collision.collides(player))
+        {
+            player.loseLife();
+            console.log("LIFE");
+        }
+    }
+
+    update()
+    {
+        super.update();
+        this.checkHit();
+    }
+}
+
+class Goal extends Entity
+{
+    constructor(position, ctx)
+    {
+        super(position, ctx, "images/key.png", 60, 60);
+        let offset = 15
+        this.collision = new CollisionBox(
+            new Vector(this.position.x + offset, this.position.y + offset), 
+            this.width-(offset*2), 
+            this.height-(offset*2)
+        );
+    }
+
+    checkGoal()
+    {
+        if (this.collision.collides(player))
+        {
+            console.log("GOAL");
+        }
+    }
+
+    update()
+    {
+        this.draw();
+        this.checkGoal();
     }
 }

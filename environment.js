@@ -1,14 +1,11 @@
 class CollisionBox
 {
-    constructor(offset, width, height, parent)
+    constructor(position, width, height)
     {
-        this.offset = offset;
+        // this.parent = parent;
+        this.position = position;
         this.width = width;
         this.height = height;
-        // this.parent = parent;
-        this.position = parent.position;
-        this.height = parent.height;
-        this.width = parent.width;
     }
 
     collides(other)
@@ -20,6 +17,11 @@ class CollisionBox
             ) { return true; }
 
         return false;
+    }
+
+    updatePosition(position)
+    {
+        this.position = position;
     }
 }
 
@@ -36,11 +38,19 @@ class Surface
         this.width = width;
         this.height = height;
 
-        this.collision = new CollisionBox(new Vector(0,0), width, height, this);
+        this.collision = new CollisionBox(this.position, this.width, this.height);
     }
 
     draw()
     {
         ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+class Brick extends Surface
+{
+    constructor(position, ctx)
+    {
+        super(position, ctx, "images/brick.png", 75, 75);
     }
 }

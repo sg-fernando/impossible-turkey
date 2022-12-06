@@ -1,0 +1,21 @@
+body
+{
+    background-color: #cbcbcb;
+}
+header, footer
+{
+    background-color: #656565;
+    color: #ededed;
+    text-align: center;
+    padding: 1em;
+    clear: both;
+}
+#main
+{
+    width: 100%;
+    text-align:center;
+}
+#gameCanvas
+{
+    display: inline;
+}
