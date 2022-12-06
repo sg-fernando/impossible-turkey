@@ -10,7 +10,7 @@ var level;
 const camera = new Camera();
 
 let s = [
-    new Brick(new Vector(500,400), ctx)
+    new Brick(new Vector(600,375), ctx)
 ];
 // const surface3 = new Surface(new Vector(900,200), ctx, "images/square.jpg", 75, 75);
 

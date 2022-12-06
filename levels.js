@@ -96,22 +96,25 @@ class Camera
 
     update()
     {
-        if (player.position.x+(player.width/2) > canvas.width/2)
+        console.log(player.position);
+        let xOffset = 15;
+        let yOffset = 5;
+        if (player.position.x+(player.width/2) > canvas.width/2+xOffset)
         {
-            this.moveX(-5);
+            this.moveX(-player.step);
         }
-        else if (player.position.x+(player.width/2) < canvas.width/2)
+        else if (player.position.x+(player.width/2) < canvas.width/2-xOffset)
         {
-            this.moveX(5);
+            this.moveX(player.step);
         }
 
-        if (player.position.y+(player.height/2) > canvas.height/2)
+        if (player.position.y+(player.height/2) > canvas.height/2+yOffset)
         {
-            this.moveY(-10);
+            this.moveY(-player.step);
         }
-        else if (player.position.x+(player.height/2) < canvas.height/2)
+        else if (player.position.y+(player.height/2) < canvas.height/2-yOffset)
         {
-            this.moveY(10);
+            this.moveY(player.step);
         }
     }
 }

@@ -22,7 +22,7 @@ function getMousePosition(canvas, event) {
     x = Math.floor(x/75)*75;
     y = Math.floor(y/75)*75;
 
-    level.appendSurface(new Brick(x, y));
+    level.appendSurface(new Brick(new Vector(x,y), ctx));
     
 
     console.log("Coordinate x: " + x, 
