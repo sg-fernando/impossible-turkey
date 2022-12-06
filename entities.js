@@ -105,13 +105,13 @@ class Entity
         this.mass = mass;
         this.vx = 0;
         this.vy = 0;
-        this.ax = 0;
         this.ay = 0;
         this.jumpMultiplier = jump;
 
-        this.walkAnimation;
-        this.jumpAnimation;
+        this.moveAnimation;
         this.standAnimation;
+
+        this.surfaces = [];
     }
 
     draw()
@@ -131,26 +131,47 @@ class Entity
     {
         if (this.vx > 0)
         {
-            this.walkAnimation.nextFrame();
-            this.img.src = this.walkAnimation.src;
+            this.moveAnimation.nextFrame();
+            this.img.src = this.moveAnimation.src;
         }
         else if (this.vx < 0)
         {
-            this.walkAnimation.previousFrame();
-            this.img.src = this.walkAnimation.src;
+            this.moveAnimation.previousFrame();
+            this.img.src = this.moveAnimation.src;
         }
-        // else if (this.vx == 0)
-        // {
-            // this.img.src = this.mainImgSrc;
-        // }
+    }
+
+    checkCollision(x, y)
+    {
+        let tempPlayer = new Object();
+        tempPlayer.position = new Vector(x, y);
+        tempPlayer.width = this.width;
+        tempPlayer.height = this.height;
+
+        for (let i = 0; i < this.surfaces.length; i++)
+        {
+            if (this.surfaces[i].collision.collides(tempPlayer))
+            {
+                this.jumpCount = 0;
+                return true;
+            }
+        }
+        return false;
     }
 
     move()
     {
+        if (this.checkCollision(this.position.x + this.vx, this.position.y))
+        {
+            this.vx = 0;
+        }
+        if (this.checkCollision(this.position.x, this.position.y + this.vy))
+        {
+            this.vy = 0;
+        }
         this.position.x += this.vx;
         this.position.y += this.vy;
         this.vy += this.ay;
-        this.vx += this.ax;
     }
 }
 
@@ -161,7 +182,7 @@ class Player extends Entity
         super(position, ctx, "images/player.png", 60, 60, 2, 5, 3);
         this.jumpCount = 0;
         this.jumpLimit = 2;
-        this.walkAnimation = new SpriteAnimation("player-moving", [1,8], true)
+        this.moveAnimation = new SpriteAnimation("player-moving", [1,8], true)
     }
 
     canJump()

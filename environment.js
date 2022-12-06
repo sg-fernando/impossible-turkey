@@ -11,37 +11,15 @@ class CollisionBox
         this.width = parent.width;
     }
 
-    top(other)
+    collides(other)
     {
-        if (this.position.y + this.height >= other.position.y && 
-            this.position.y <= other.position.y + other.height &&
-            this.position.x + this.width >= other.position.x &&
-            this.position.x <= other.position.x + other.width
+        if (this.position.y + this.height > other.position.y && 
+            this.position.y < other.position.y + other.height &&
+            this.position.x + this.width > other.position.x &&
+            this.position.x < other.position.x + other.width
             ) { return true; }
 
         return false;
-    }
-
-    right(other)
-    {
-        if (this.position.y + this.height >= other.position.y && 
-            this.position.y <= other.position.y + other.height &&
-            this.position.x + this.width >= other.position.x &&
-            this.position.x <= other.position.x + other.width
-            ) { return true; }
-
-        return false;
-    }
-
-    checkCollision(other)
-    {
-        if (this.top(other))
-        {
-            // FIXME goes to top of surface straight away
-            // nee to account for bottom and sides so that it doens't teleport to top if hit on side or bottom
-            other.vy = 0;
-            other.jumpCount = 0;
-        }
     }
 }
 
