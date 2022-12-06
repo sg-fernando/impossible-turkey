@@ -19,3 +19,119 @@ header, footer
 {
     display: inline;
 }
+header {
+    background-color: rgb(178, 178, 178);
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 50px;
+}
+
+h2 {
+    color: rgb(255, 255, 255);
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+}
+
+#instructions p {
+    color: rgb(255, 99, 99);
+    font-size: x-large;
+}
+
+body {
+    background-color: rgb(83, 83, 83);
+}
+
+
+footer {
+    background-color: rgb(178, 178, 178);
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+footer p {
+    color: rgb(0, 0, 0);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+#wrapper {
+    width: 100%;
+}
+
+#instructions {
+    margin-top: 2em;
+    border-radius: 10px;
+    border-style: double;
+    border-width: 15px;
+    border-color: rgb(0, 0, 0);
+    background-color: rgb(83, 83, 83);
+    margin-bottom: 2em;
+    padding: 2em;
+}
+
+form {
+    text-align: center;
+}
+
+#submit {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 20%;
+    font-size: xx-large;
+}
+
+#submit:hover {
+    background-color: #ff9408;
+}
+
+#main {
+    width: 100%;
+    text-align:center;
+}
+
+canvas {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    display: inline;
+}
+
+
+nav {
+    display: flex;
+    background-color: rgb(178, 178, 178);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+nav a {
+    background-color: rgb(255, 63, 63);
+    padding: 20px;
+    font-weight: bold;
+    color: rgb(8, 35, 47);
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 3px;
+}
+
+nav a:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+nav a:link, nav a:visited, nav a:hover, nav a:active {
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #ff9408;
+}
