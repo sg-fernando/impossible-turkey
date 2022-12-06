@@ -6,7 +6,7 @@ const ctx = canvas.getContext("2d");
 var gravity = 1;
 
 const player = new Player(new Vector(0,0), ctx);
-const surface = new Surface(new Vector(100,300), ctx, "images/square.jpg", 500, 100);
+const surface = new Surface(new Vector(0,300), ctx, "images/square.jpg", 600, 100);
 const surface2 = new Surface(new Vector(100,400), ctx, "images/square.jpg", 800, 100);
 const surface3 = new Surface(new Vector(900,300), ctx, "images/square.jpg", 100, 100);
 
