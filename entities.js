@@ -105,7 +105,7 @@ class Entity
         this.mass = mass;
         this.vx = 0;
         this.vy = 0;
-        this.ay = 0;
+        this.ay = gravity;
         this.jumpMultiplier = jump;
 
         this.moveAnimation;
@@ -124,7 +124,6 @@ class Entity
         // maybe add check of velocity so that can double jump higher when at apex of first jump
         this.vy = 0;
         this.vy -= this.step*this.jumpMultiplier;
-        this.ay = gravity;
     }
 
     animate()
@@ -161,6 +160,7 @@ class Entity
 
     move()
     {
+        // FIXME dampening occurs at end of jump
         if (this.checkCollision(this.position.x + this.vx, this.position.y))
         {
             this.vx = 0;
@@ -172,6 +172,9 @@ class Entity
         this.position.x += this.vx;
         this.position.y += this.vy;
         this.vy += this.ay;
+
+        this.draw();
+        this.animate();
     }
 }
 
@@ -179,10 +182,11 @@ class Player extends Entity
 {
     constructor(position, ctx)
     {
-        super(position, ctx, "images/player.png", 60, 60, 2, 5, 3);
+        super(position, ctx, "images/player.png", 60, 60, 2, 5, 2.5);
         this.jumpCount = 0;
         this.jumpLimit = 2;
         this.moveAnimation = new SpriteAnimation("player-moving", [1,8], true)
+        this.lives = 3;
     }
 
     canJump()
@@ -190,16 +194,49 @@ class Player extends Entity
         if (this.jumpCount < this.jumpLimit) return true;
         return false;
     }
+
+    showLives()
+    {
+        this.ctx.font = "48px serif";
+        this.ctx.fillText("Lives: " + this.lives, 10, 50);
+
+    }
+
+    loseLife()
+    {
+        this.lives--;
+        if (this.lives == 0)
+        {
+            // TODO game over
+        }
+    }
 }
 
 class Turkey extends Entity
 {
-    constructor(position, ctx)
+    constructor(position, ctx, step)
     {
+        super(position, ctx, "images/turkey.png", 60, 60, 2, step, 3);
+        // TODO 
+        // flip turkey on turn
+        // change animation for feet to reach bottom
+        this.moveAnimation = new SpriteAnimation("turkey-moving", [1,9], true)
+        this.direction = 1;
+        this.vx = this.step;
     }
 
     randomTurkey()
     {
         return "images/turkey.png"
+    }
+
+    move()
+    {
+        super.move();
+        if (this.vx == 0)
+        {
+            this.direction *= -1;
+            this.vx = this.direction*this.step;
+        }
     }
 }
