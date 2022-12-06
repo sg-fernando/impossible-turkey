@@ -3,7 +3,7 @@ addEventListener("keydown", function(e)
     if (e.code == "KeyD") { player.vx = player.step; }
     if (e.code == "KeyA") { player.vx = -player.step; }
     if (e.code == "KeyS") { player.vy = player.step; }
-    if (e.code == "KeyW" && player.canJump()) { player.jump(); player.jumpCount++; }
+    if ((e.code == "KeyW" || e.code == "Space")&& player.canJump()) { player.jump(); player.jumpCount++; }
 })
 
 addEventListener("keyup", function(e)
