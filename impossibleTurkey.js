@@ -17,10 +17,10 @@ let s = [
 // const surface3 = new Surface(new Vector(900,200), ctx, "images/square.jpg", 75, 75);
 
 let e = [
-    new Turkey(new Vector(100,0), ctx, 2)
+    new Turkey(new Vector(150,0), ctx, 2)
 ];
 
-level = new Level(new Vector(0,0), new Vector(300,200), ctx, s, e);
+level = new Level(new Vector(50,0), new Vector(300,200), ctx, s, e);
 
 function update()
 {
