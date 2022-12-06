@@ -7,7 +7,6 @@ class Level
         this.entities = entities;
         this.player = new Player(playerPosition, ctx);
         this.goal = new Goal(goalPosition, ctx);
-        player = this.player;
 
         this.player.surfaces = this.surfaces;
         for (let i = 0; i < this.entities.length; i++)
@@ -39,10 +38,12 @@ class Level
     update()
     {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        this.goal.update();
+        
         this.player.showLives();
         this.player.update();
 
-        this.goal.update();
 
         for (let i = 0; i < this.entities.length; i++)
         {
@@ -53,5 +54,75 @@ class Level
         {
             this.surfaces[i].draw();
         }
+    }
+}
+
+class Camera
+{
+    constructor()
+    {
+        this.everything = [];
+    }
+
+    moveX(amount)
+    {
+        level.player.position.x += amount;
+        level.goal.position.x += amount;
+
+        for (let i = 0; i < level.surfaces.length; i++)
+        {
+            level.surfaces[i].position.x += amount;
+        }
+        for (let i = 0; i < level.entities.length; i++)
+        {
+            level.entities[i].position.x += amount;
+        }
+    }
+
+    moveY(amount)
+    {
+        level.player.position.y += amount;
+        level.goal.position.y += amount;
+        
+        for (let i = 0; i < level.surfaces.length; i++)
+        {
+            level.surfaces[i].position.y += amount;
+        }
+        for (let i = 0; i < level.entities.length; i++)
+        {
+            level.entities[i].position.y += amount;
+        }
+    }
+
+    update()
+    {
+        if (player.position.x+(player.width/2) > canvas.width/2)
+        {
+            this.moveX(-5);
+        }
+        else if (player.position.x+(player.width/2) < canvas.width/2)
+        {
+            this.moveX(5);
+        }
+
+        if (player.position.y+(player.height/2) > canvas.height/2)
+        {
+            this.moveY(-10);
+        }
+        else if (player.position.x+(player.height/2) < canvas.height/2)
+        {
+            this.moveY(10);
+        }
+    }
+}
+
+class Main
+{
+    constructor()
+    {
+        fetch('./levels.json')
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+
     }
 }

@@ -183,7 +183,7 @@ class Movable extends Entity
     }
 
     update()
-    {
+    {   
         this.move();
         this.draw();
         this.animateMove();
@@ -199,6 +199,7 @@ class Player extends Movable
         this.jumpLimit = 2;
         this.moveAnimation = new SpriteAnimation("player-moving", [1,8], true)
         this.lives = 3;
+        player = this;
     }
 
     canJump()
@@ -216,8 +217,8 @@ class Player extends Movable
 
     respawn()
     {
-        this.position = new Vector(50,50);
-        this.vy = -5;
+        this.position = new Vector(500,50);
+        this.vy = -10;
     }
 
     loseLife()
@@ -290,8 +291,8 @@ class Goal extends Entity
 {
     constructor(position, ctx)
     {
-        super(position, ctx, "images/key.png", 60, 60);
-        let offset = 15
+        super(position, ctx, "images/door.png", 80, 100);
+        let offset = 50
         this.collision = new CollisionBox(
             new Vector(this.position.x + offset, this.position.y + offset), 
             this.width-(offset*2), 
