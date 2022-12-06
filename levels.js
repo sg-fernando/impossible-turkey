@@ -98,7 +98,7 @@ class Camera
     {
         console.log(player.position);
         let xOffset = 15;
-        let yOffset = 5;
+        let yOffset = 10;
         if (player.position.x+(player.width/2) > canvas.width/2+xOffset)
         {
             this.moveX(-player.step);
@@ -110,11 +110,11 @@ class Camera
 
         if (player.position.y+(player.height/2) > canvas.height/2+yOffset)
         {
-            this.moveY(-player.step);
+            this.moveY(-7);
         }
         else if (player.position.y+(player.height/2) < canvas.height/2-yOffset)
         {
-            this.moveY(player.step);
+            this.moveY(7);
         }
     }
 }
