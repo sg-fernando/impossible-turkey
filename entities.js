@@ -216,8 +216,8 @@ class Player extends Movable
 
     respawn()
     {
-        this.position = new Vector(50,0);
-        this.vy = 0;
+        this.position = new Vector(50,50);
+        this.vy = -5;
     }
 
     loseLife()
