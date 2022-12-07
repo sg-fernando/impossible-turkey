@@ -1,12 +1,11 @@
 class Level
 {
-    constructor(playerPosition, goalPosition, ctx, surfaces, entities)
+    constructor(playerPosition, goalPosition, surfaces, entities)
     {
-        this.ctx = ctx
         this.surfaces = surfaces;
         this.entities = entities;
-        this.player = new Player(playerPosition, ctx);
-        this.goal = new Goal(goalPosition, ctx);
+        this.player = new Player(playerPosition);
+        this.goal = new Goal(goalPosition);
 
         this.player.surfaces = this.surfaces;
         for (let i = 0; i < this.entities.length; i++)
@@ -37,7 +36,7 @@ class Level
 
     update()
     {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         this.goal.update();
         
@@ -118,11 +117,25 @@ class Camera
     }
 }
 
-class Main
+
+
+class LevelGenerator
 {
-    constructor()
+    constructor(difficulty)
     {
-        
+        this.difficulty = difficulty;
+        this.range = 7
+        this.levelArray = [0];
+        this.levels = require('./levels.json');
+    }
+
+    randomLevel()
+    {
+        for (let i = 0; i < (1+(this.difficulty*5)); i++)
+        {
+            let n = Math.floor(Math.random() * this.range);
+            this.levelArray.push(n);
+        }
     }
     
 }

@@ -89,14 +89,13 @@ class SpriteAnimation
 
 class Entity
 {
-    constructor(position, ctx, img, width, height)
+    constructor(position, img, width, height)
     {
         this.mainImgSrc = img;
 
         this.position = position;
         this.img = new Image();
         this.img.src = img;
-        this.ctx = ctx;
 
         this.width = width;
         this.height = height;
@@ -111,9 +110,9 @@ class Entity
 class Movable extends Entity
 {
     // general entity class for user and enemies
-    constructor(position, ctx, img, width, height, mass, step, jump)
+    constructor(position, img, width, height, mass, step, jump)
     {
-        super(position, ctx, img, width, height);
+        super(position, img, width, height);
         this.step = step;
         this.mass = mass;
         this.vx = 0;
@@ -192,9 +191,9 @@ class Movable extends Entity
 
 class Player extends Movable
 {
-    constructor(position, ctx)
+    constructor(position)
     {
-        super(position, ctx, "images/player.png", 60, 60, 2, 5, 2.5);
+        super(position, "images/player.png", 60, 60, 2, 5, 2.5);
         this.jumpCount = 0;
         this.jumpLimit = 2;
         this.moveAnimation = new SpriteAnimation("player-moving", [1,8], true)
@@ -210,8 +209,8 @@ class Player extends Movable
 
     showLives()
     {
-        this.ctx.font = "48px serif";
-        this.ctx.fillText("Lives: " + this.lives, 10, 50);
+        ctx.font = "48px serif";
+        ctx.fillText("Lives: " + this.lives, 10, 50);
 
     }
 
@@ -238,9 +237,9 @@ class Player extends Movable
 
 class Turkey extends Movable
 {
-    constructor(position, ctx, step)
+    constructor(position, step)
     {
-        super(position, ctx, "images/turkey.png", 60, 60, 2, step, 3);
+        super(position, "images/turkey.png", 60, 60, 2, step, 3);
         // TODO 
         // flip turkey on turn
         // change animation for feet to reach bottom
@@ -289,9 +288,9 @@ class Turkey extends Movable
 
 class Goal extends Entity
 {
-    constructor(position, ctx)
+    constructor(position)
     {
-        super(position, ctx, "images/door.png", 80, 100);
+        super(position, "images/door.png", 80, 100);
         let offset = 50
         this.collision = new CollisionBox(
             new Vector(this.position.x + offset, this.position.y + offset), 

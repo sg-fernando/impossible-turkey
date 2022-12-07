@@ -28,12 +28,11 @@ class CollisionBox
 class Surface
 {
     // general entity class for user and enemies
-    constructor(position, ctx, img, width, height)
+    constructor(position, img, width, height)
     {
         this.position = position;
         this.img = new Image();
         this.img.src = img;
-        this.ctx = ctx;
 
         this.width = width;
         this.height = height;
@@ -49,8 +48,8 @@ class Surface
 
 class Brick extends Surface
 {
-    constructor(position, ctx)
+    constructor(position)
     {
-        super(position, ctx, "images/brick.png", 75, 75);
+        super(position, "images/brick.png", 75, 75);
     }
 }

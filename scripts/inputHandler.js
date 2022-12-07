@@ -23,7 +23,7 @@ addEventListener("keyup", function(e)
 //     x = Math.floor(x/75)*75;
 //     y = Math.floor(y/75)*75;
 
-//     level.appendSurface(new Brick(new Vector(x,y), ctx));
+//     level.appendSurface(new Brick(new Vector(x,y)));
     
 
 //     console.log("Coordinate x: " + x, 
