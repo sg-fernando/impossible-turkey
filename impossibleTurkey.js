@@ -10,14 +10,18 @@ var level;
 const camera = new Camera();
 
 let s = [
-    new Brick(new Vector(600,375), ctx)
+    new Brick(new Vector(500,375), ctx),
+    new Brick(new Vector(500+75,375), ctx),
+    new Brick(new Vector(500+75+75,375), ctx),
+    new Brick(new Vector(500+75+75+75,375), ctx),
+    new Brick(new Vector(500+75+75+75+75,375), ctx)
 ];
 // const surface3 = new Surface(new Vector(900,200), ctx, "images/square.jpg", 75, 75);
 
 let e = [
 ];
 
-level = new Level(new Vector(500,0), new Vector(0,0), ctx, s, e);
+level = new Level(new Vector(550,0), new Vector(0,0), ctx, s, e);
 
 function update()
 {

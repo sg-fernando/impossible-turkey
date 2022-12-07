@@ -13,22 +13,23 @@ addEventListener("keyup", function(e)
 })
 
 
+// this doesn't work and i have no idea why
+// but its okay we're trying something different now
+// function getMousePosition(canvas, event) {
+//     let rect = canvas.getBoundingClientRect();
+//     let x = event.clientX - rect.left;
+//     let y = event.clientY - rect.top;
 
-function getMousePosition(canvas, event) {
-    let rect = canvas.getBoundingClientRect();
-    let x = event.clientX - rect.left;
-    let y = event.clientY - rect.top;
+//     x = Math.floor(x/75)*75;
+//     y = Math.floor(y/75)*75;
 
-    x = Math.floor(x/75)*75;
-    y = Math.floor(y/75)*75;
-
-    level.appendSurface(new Brick(new Vector(x,y), ctx));
+//     level.appendSurface(new Brick(new Vector(x,y), ctx));
     
 
-    console.log("Coordinate x: " + x, 
-                "Coordinate y: " + y);
-}
-addEventListener("mousedown", function(e)
-{
-    getMousePosition(canvas, e);
-});
+//     console.log("Coordinate x: " + x, 
+//                 "Coordinate y: " + y);
+// }
+// addEventListener("mousedown", function(e)
+// {
+//     getMousePosition(canvas, e);
+// });

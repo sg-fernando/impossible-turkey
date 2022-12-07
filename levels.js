@@ -96,7 +96,6 @@ class Camera
 
     update()
     {
-        console.log(player.position);
         let xOffset = 5;
         let yOffset = 10;
         if (player.position.x+(player.width/2) > canvas.width/2+xOffset)
@@ -123,9 +122,7 @@ class Main
 {
     constructor()
     {
-        fetch('./levels.json')
-        .then((response) => response.json())
-        .then((json) => console.log(json));
-
+        
     }
+    
 }
