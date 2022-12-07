@@ -7,6 +7,8 @@ class Level
         this.player = new Player(playerPosition);
         this.goal = new Goal(goalPosition);
 
+        this.camera = new Camera();
+
         this.player.surfaces = this.surfaces;
         for (let i = 0; i < this.entities.length; i++)
         {
@@ -53,6 +55,8 @@ class Level
         {
             this.surfaces[i].draw();
         }
+
+        this.camera.update();
     }
 }
 
@@ -128,11 +132,11 @@ class Camera
 
         if (player.position.y+(player.height/2) > canvas.height/2+yOffset)
         {
-            this.moveY(-7);
+            this.moveY(-8);
         }
         else if (player.position.y+(player.height/2) < canvas.height/2-yOffset)
         {
-            this.moveY(7);
+            this.moveY(8);
         }
     }
 }
@@ -196,7 +200,7 @@ class LevelGenerator
                 }
                 this.data.push(pixels);
             };
-            img.src = "terrain/"+i+".png";
+            img.src = "terrain/"+this.levelArray[i]+".png";
         };
         return this.data;
     }
@@ -207,7 +211,8 @@ class LevelGenerator
         this.entities = [];
         for (let i = 0; i < this.data.length; i++)
         {
-            let start = i*this.brickWidth*this.canvas.width;
+            let xOffset = i*this.brickWidth*this.canvas.width;
+            console.log(xOffset);
             for (let j = 0; j < this.data[i].length; j++)
             {
                 let x = this.data[i][j].x;
@@ -218,7 +223,7 @@ class LevelGenerator
                     pixel[1] == pixel[2] &&
                     pixel[3] == 255)
                 {
-                    let brick = new Brick(new Vector(start+(x*this.brickWidth), y*this.brickWidth));
+                    let brick = new Brick(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth));
                     this.surfaces.push(brick);
                 }
             }
@@ -226,7 +231,7 @@ class LevelGenerator
     }
     create()
     {
-        return new Level(new Vector(this.brickWidth*(this.canvas.width/2), 0), new Vector(0,0), this.surfaces, this.entities);
+        return new Level(new Vector(100, 0), new Vector(0,0), this.surfaces, this.entities);
     }
     
 }

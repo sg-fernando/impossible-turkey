@@ -14,7 +14,6 @@ level = new MenuLevel();
 
 function update()
 {
-    camera.update();
     level.update();
     // update canvas
     requestAnimationFrame(update);
