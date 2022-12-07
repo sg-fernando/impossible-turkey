@@ -8,19 +8,9 @@ var player;
 var level;
 const camera = new Camera();
 
-let s = [
-    new Brick(new Vector(500,375)),
-    new Brick(new Vector(500+75,375)),
-    new Brick(new Vector(500+75+75,375)),
-    new Brick(new Vector(500+75+75+75,375)),
-    new Brick(new Vector(500+75+75+75+75,375))
-];
 // const surface3 = new Surface(new Vector(900,200), ctx, "images/square.jpg", 75, 75);
-
-let e = [
-];
-
-level = new Level(new Vector(550,0), new Vector(0,0), s, e);
+generator = new LevelGenerator(0);
+level = new MenuLevel();
 
 function update()
 {
@@ -31,3 +21,16 @@ function update()
 }
 // first call
 update();
+
+function difficulty(difficulty)
+{
+    generator.difficulty = difficulty;
+    generator.randomLevel();
+    generator.arrayConversion();
+}
+
+function play()
+{
+    generator.getLevel();
+    level = generator.create();
+}

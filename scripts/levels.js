@@ -56,11 +56,31 @@ class Level
     }
 }
 
+class MenuLevel extends Level
+{
+    constructor()
+    {
+        let e = [];
+        let s = [
+            new Brick(new Vector(500,375)),
+            new Brick(new Vector(500+65,375)),
+            new Brick(new Vector(500+65+65,375)),
+            new Brick(new Vector(500+65+65+65,375)),
+            new Brick(new Vector(500+65+65+65+65,375))
+        ];
+        super(new Vector(500+65+65,0), new Vector(-1000,0), s, e);
+    }
+
+    update()
+    {
+        super.update()
+    }
+}
+
 class Camera
 {
     constructor()
     {
-        this.everything = [];
     }
 
     moveX(amount)
@@ -124,18 +144,89 @@ class LevelGenerator
     constructor(difficulty)
     {
         this.difficulty = difficulty;
-        this.range = 7
+        this.range = 6
+        this.canvas = document.getElementById("levelCanvas");
+        this.ctx = this.canvas.getContext("2d");
         this.levelArray = [0];
-        this.levels = require('./levels.json');
+        this.data = [];
+        this.imgs = [];
+
+        this.brickWidth = 80;
+
+        this.surfaces = [];
+        this.entities = [];
     }
 
     randomLevel()
     {
+        this.levelArray = [0];
         for (let i = 0; i < (1+(this.difficulty*5)); i++)
         {
             let n = Math.floor(Math.random() * this.range);
             this.levelArray.push(n);
         }
+    }
+
+    arrayConversion()
+    {
+        this.data = [];
+        this.imgs = [];
+        for (let i = 0; i < this.levelArray.length; i++)
+        {
+            this.imgs.push(new Image());
+            
+        }
+        for (let i = 0; i < this.levelArray.length; i++)
+        {
+            let img = this.imgs[i];
+            img.onload = ()=>{
+                this.ctx.drawImage(img, 0, 0);
+                let pixels = [];
+                for (let x = 0; x < this.canvas.width; x++)
+                {
+                    for (let y = 0; y < this.canvas.height; y++)
+                    {
+                        let pixel = this.ctx.getImageData(x, y, 1, 1).data;
+                        pixels.push({
+                            x: x,
+                            y: y,
+                            pixel: pixel
+                        });
+                    }
+                }
+                this.data.push(pixels);
+            };
+            img.src = "terrain/"+i+".png";
+        };
+        return this.data;
+    }
+
+    getLevel()
+    {
+        this.surfaces = [];
+        this.entities = [];
+        for (let i = 0; i < this.data.length; i++)
+        {
+            let start = i*this.brickWidth*this.canvas.width;
+            for (let j = 0; j < this.data[i].length; j++)
+            {
+                let x = this.data[i][j].x;
+                let y = this.data[i][j].y;
+                let pixel = this.data[i][j].pixel;
+                if (pixel[0] == 0 &&
+                    pixel[0] == pixel[1] && 
+                    pixel[1] == pixel[2] &&
+                    pixel[3] == 255)
+                {
+                    let brick = new Brick(new Vector(start+(x*this.brickWidth), y*this.brickWidth));
+                    this.surfaces.push(brick);
+                }
+            }
+        }
+    }
+    create()
+    {
+        return new Level(new Vector(this.brickWidth*(this.canvas.width/2), 0), new Vector(0,0), this.surfaces, this.entities);
     }
     
 }

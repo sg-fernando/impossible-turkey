@@ -193,7 +193,7 @@ class Player extends Movable
 {
     constructor(position)
     {
-        super(position, "images/player.png", 60, 60, 2, 5, 2.5);
+        super(position, "images/player.png", 60, 60, 2, 5, 2.75);
         this.jumpCount = 0;
         this.jumpLimit = 2;
         this.moveAnimation = new SpriteAnimation("player-moving", [1,8], true)

@@ -50,6 +50,6 @@ class Brick extends Surface
 {
     constructor(position)
     {
-        super(position, "images/brick.png", 75, 75);
+        super(position, "images/brick.png", 80, 80);
     }
 }

@@ -6,6 +6,7 @@
         <meta name="author" content="Albert Phan and Fernando Sandoval Garza">
         <link rel="icon" type="image/x-icon" href="thumbnail.png">
         <link rel="stylesheet" href="impossibleTurkey.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     </head>
     <body>
         <nav class="nav" id="nav">
@@ -18,13 +19,19 @@
             
             <div id="main">
                 <canvas id="gameCanvas" width="1200" height="600" style="border:1px solid #000000;"></canvas>
+                <canvas id="levelCanvas" width="20" height="20" style="display: none;"></canvas>
+                <div id="buttons">
+                    <button onclick="difficulty(0)">Easy</button>
+                    <button onclick="difficulty(1)">Medium</button>
+                    <button onclick="difficulty(2)">Hard</button>
+                    <button onclick="play()">Play</button>
+                </div>
             </div>
 
             <footer>
                 <p>Cool Games</p>
             </footer>
         </div>
-        <script src="scripts/require.js"></script>
         <script src="scripts/entities.js"></script>
         <script src="scripts/environment.js"></script>
         <script src="scripts/levels.js"></script>
