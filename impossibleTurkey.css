@@ -159,12 +159,12 @@ nav a:hover, #play{
 }
 
 #difficulty {
-    background-color: rgb(225, 0, 255);
+    background-color: rgb(193, 3, 3);
     color: white;
     padding: 8px;
     border-radius: 5px;
     margin-top: 5px;
-    width: 5%;
+    width: 7%;
     font-size: small;
     margin-bottom: 5px;
 }
