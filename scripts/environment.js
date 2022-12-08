@@ -2,7 +2,6 @@ class CollisionBox
 {
     constructor(position, width, height)
     {
-        // this.parent = parent;
         this.position = position;
         this.width = width;
         this.height = height;

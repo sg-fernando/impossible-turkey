@@ -15,6 +15,7 @@ addEventListener("keyup", function(e)
 
 // this doesn't work and i have no idea why
 // but its okay we're trying something different now
+// 
 // function getMousePosition(canvas, event) {
 //     let rect = canvas.getBoundingClientRect();
 //     let x = event.clientX - rect.left;

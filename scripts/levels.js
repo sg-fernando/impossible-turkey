@@ -4,14 +4,16 @@ class Level
     {
         this.surfaces = surfaces;
         this.entities = entities;
-        this.player = new Player(playerPosition);
+        new Player(playerPosition);
         this.goal = new Goal(goalPosition);
+
+        this.surfaces.push(new Brick(new Vector(0,21*80))); //fall limit
 
         this.play = true;
 
         this.camera = new Camera();
 
-        this.player.surfaces = this.surfaces;
+        player.surfaces = this.surfaces;
         for (let i = 0; i < this.entities.length; i++)
         {
             this.entities[i].surfaces = this.surfaces;
@@ -23,7 +25,7 @@ class Level
     setSurfaces(surfaces)
     {
         this.surfaces = surfaces;
-        this.player.surfaces = surfaces;
+        player.surfaces = surfaces;
         for (let i = 0; i < this.entities.length; i++)
         {
             this.entities[i].surfaces = surfaces;
@@ -33,7 +35,7 @@ class Level
     appendSurface(surface)
     {
         this.surfaces.push(surface);
-        this.player.surfaces.push(surface);
+        player.surfaces.push(surface);
         for (let i = 0; i < this.entities.length; i++)
         {
             this.entities[i].surfaces.push(surface);
@@ -58,13 +60,22 @@ class Level
     {
         ctx.fillText("Score: "+ levelScore, 10, 100);
     }
+
+    checkFall()
+    {
+        if (player.position.y > this.surfaces[this.surfaces.length-1].position.y)
+        {
+            player.gameOver();
+        }
+    }
+
     update()
     {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         this.goal.update();
         
-        this.player.update();
+        player.update();
         
         
         for (let i = 0; i < this.entities.length; i++)
@@ -81,7 +92,9 @@ class Level
         {
             this.updateLevelScore();
         }
-        this.player.showLives();
+
+        this.checkFall();
+        player.showLives();
         this.camera.update();
     }
 }
@@ -93,12 +106,12 @@ class MenuLevel extends Level
         let e = [];
         let s = [
             new Brick(new Vector(500,375)),
-            new Brick(new Vector(500+65,375)),
-            new Brick(new Vector(500+65+65,375)),
-            new Brick(new Vector(500+65+65+65,375)),
-            new Brick(new Vector(500+65+65+65+65,375))
+            new Brick(new Vector(500+80,375)),
+            new Brick(new Vector(500+80+80,375)),
+            new Brick(new Vector(500+80+80+80,375)),
+            new Brick(new Vector(500+80+80+80+80,375))
         ];
-        super(new Vector(500+65+65,0), new Vector(-1000,0), s, e);
+        super(new Vector(500+80+80,0), new Vector(-1000,0), s, e);
         this.play = false;
     }
 
@@ -119,7 +132,7 @@ class Camera
 
     moveX(amount)
     {
-        level.player.position.x += amount;
+        player.position.x += amount;
         level.goal.position.x += amount;
 
         for (let i = 0; i < level.surfaces.length; i++)
@@ -134,7 +147,7 @@ class Camera
 
     moveY(amount)
     {
-        level.player.position.y += amount;
+        player.position.y += amount;
         level.goal.position.y += amount;
         
         for (let i = 0; i < level.surfaces.length; i++)
@@ -178,7 +191,7 @@ class LevelGenerator
     constructor(difficulty)
     {
         this.difficulty = difficulty;
-        this.range = 7;
+        this.range = 10;
         this.canvas = document.getElementById("levelCanvas");
         this.ctx = this.canvas.getContext("2d");
         this.levelArray = [0];
