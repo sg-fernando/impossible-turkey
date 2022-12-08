@@ -42,20 +42,20 @@ class Level
 
         this.goal.update();
         
-        this.player.showLives();
         this.player.update();
-
-
+        
+        
         for (let i = 0; i < this.entities.length; i++)
         {
             this.entities[i].update();
         }
-
+        
         for (let i = 0; i < this.surfaces.length; i++)
         {
             this.surfaces[i].draw();
         }
-
+        
+        this.player.showLives();
         this.camera.update();
     }
 }
@@ -220,7 +220,8 @@ class LevelGenerator
                 let x = this.data[i][j].x;
                 let y = this.data[i][j].y;
                 let pixel = this.data[i][j].pixel;
-                if (pixel[0] == 0 &&
+                if (
+                    pixel[0] == 0 &&
                     pixel[0] == pixel[1] && 
                     pixel[1] == pixel[2] &&
                     pixel[3] == 255)
@@ -228,6 +229,18 @@ class LevelGenerator
                     // console.log(xOffset+(x*this.brickWidth));
                     let brick = new Brick(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth));
                     this.surfaces.push(brick);
+                }
+                else if (
+                    pixel[0] == 237 &&
+                    pixel[1] == 28 && 
+                    pixel[2] == 36 &&
+                    pixel[3] == 255
+                )
+                {
+                    let turkeySpeed = Math.ceil(Math.random() * this.difficulty+5);
+                    let turkeyJump = Math.ceil(Math.random() * this.difficulty+3);
+                    let turkey = new Turkey(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth), turkeySpeed, turkeyJump);
+                    this.entities.push(turkey);
                 }
             }
         }

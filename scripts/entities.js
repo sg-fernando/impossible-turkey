@@ -12,14 +12,9 @@ class Vector
         return Math.sqrt((this.x*this.x) + (this.y*this.y));
     }
 
-    minus(other)
+    difference(other)
     {
-        return new Vector(this.x-other.x, this.y-other.y);
-    }
-
-    plus(other)
-    {
-        return new Vector(this.x+other.x, this.y+other.y);
+        return new Vector(Math.abs(this.x-other.x), Math.abs(this.y-other.y));
     }
 }
 
@@ -198,6 +193,7 @@ class Player extends Movable
         this.jumpLimit = 2;
         this.moveAnimation = new SpriteAnimation("player-moving", [1,8], true)
         this.lives = 3;
+        this.canBeHit = true;
         player = this;
     }
 
@@ -214,10 +210,9 @@ class Player extends Movable
 
     }
 
-    respawn()
+    hit()
     {
-        this.position = new Vector(500,50);
-        this.vy = -10;
+        this.vy = -15;
     }
 
     loseLife()
@@ -225,7 +220,7 @@ class Player extends Movable
         if (this.lives > 0)
         {
             this.lives--;
-            this.respawn();
+            this.hit();
         }
         else
         {
@@ -237,23 +232,23 @@ class Player extends Movable
 
 class Turkey extends Movable
 {
-    constructor(position, step)
+    constructor(position, step, jump)
     {
-        super(position, "images/turkey.png", 60, 60, 2, step, 3);
+        super(position, "images/turkey.png", 60, 60, 2, step, jump);
         // TODO 
         // flip turkey on turn
         // change animation for feet to reach bottom
         this.moveAnimation = new SpriteAnimation("turkey-moving", [1,9], true)
         this.direction = 1;
-        this.vx = this.step;
+        this.vx = 0;
         let offset = 10;
         this.collision = new CollisionBox(
             new Vector(this.position.x + offset, this.position.y + offset), 
             this.width-(offset*2), 
             this.height-(offset*2)
         );
+        this.jumpInterval = Math.ceil(Math.random() * 5);
     }
-
     randomTurkey()
     {
         return "images/turkey.png"
@@ -266,6 +261,15 @@ class Turkey extends Movable
         {
             this.direction *= -1;
             this.vx = this.direction*this.step;
+        }
+        let playerDistance = player.position.difference(this.position).length;
+        if (playerDistance > 1300)
+        {
+            this.vx = 0;
+        }
+        if (Date.getTime() % 5000 == 0)
+        {
+            this.jump();
         }
         this.collision.updatePosition(this.position);
     }
