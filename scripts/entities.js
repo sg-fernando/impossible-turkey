@@ -168,7 +168,10 @@ class Movable extends Entity
         }
         if (this.surfaceCollision(this.position.x, this.position.y + this.vy))
         {
-            this.jumpCount = 0;
+            if (this.vy > 0)
+            {
+                this.jumpCount = 0;
+            }
             this.vy = 0;
         }
         this.position.x += this.vx;
