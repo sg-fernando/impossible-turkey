@@ -7,7 +7,7 @@ class Level
         new Player(playerPosition);
         this.goal = new Goal(goalPosition);
 
-        this.surfaces.push(new Brick(0,21*80)); //fall limit
+        this.surfaces.push(new Brick(new Vector(0,21*80))); //fall limit
 
         this.play = true;
 
