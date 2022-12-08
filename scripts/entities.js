@@ -193,7 +193,7 @@ class Player extends Movable
         this.jumpLimit = 2;
         this.moveAnimation = new SpriteAnimation("player-moving", [1,8], true)
         this.lives = 3;
-        this.canBeHit = true;
+        this.lastHit = new Date();
         player = this;
     }
 
@@ -213,10 +213,17 @@ class Player extends Movable
     hit()
     {
         this.vy = -15;
+        this.lastHit = new Date();
     }
 
     loseLife()
     {
+        let now = new Date();
+        console.log(now - this.lastHit);
+        if ((now - this.lastHit) < 2500)
+        {
+            return;
+        }
         if (this.lives > 0)
         {
             this.lives--;
@@ -247,7 +254,7 @@ class Turkey extends Movable
             this.width-(offset*2), 
             this.height-(offset*2)
         );
-        this.jumpInterval = Math.ceil(Math.random() * 5);
+        this.jumpInterval = Math.ceil(Math.random() * 5) * 100;
     }
     randomTurkey()
     {
@@ -267,7 +274,8 @@ class Turkey extends Movable
         {
             this.vx = 0;
         }
-        if (Date.getTime() % this.jumpInterval == 0)
+        let now = new Date();
+        if ((now - epoch) % this.jumpInterval == 0)
         {
             this.jump();
         }

@@ -132,7 +132,7 @@ class Camera
 
         if (player.position.y+(player.height/2) > canvas.height/2+yOffset)
         {
-            this.moveY(-8);
+            this.moveY(-player.vy);
         }
         else if (player.position.y+(player.height/2) < canvas.height/2-yOffset)
         {
@@ -238,7 +238,7 @@ class LevelGenerator
                 )
                 {
                     let turkeySpeed = Math.ceil(Math.random() * this.difficulty+5);
-                    let turkeyJump = Math.ceil(Math.random() * this.difficulty+3);
+                    let turkeyJump = (Math.random() * this.difficulty) + 0.5;
                     let turkey = new Turkey(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth), turkeySpeed, turkeyJump);
                     this.entities.push(turkey);
                 }
