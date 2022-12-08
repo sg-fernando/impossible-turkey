@@ -13,7 +13,7 @@ class Level
 
         this.camera = new Camera();
 
-        this.player.surfaces = this.surfaces;
+        player.surfaces = this.surfaces;
         for (let i = 0; i < this.entities.length; i++)
         {
             this.entities[i].surfaces = this.surfaces;
@@ -25,7 +25,7 @@ class Level
     setSurfaces(surfaces)
     {
         this.surfaces = surfaces;
-        this.player.surfaces = surfaces;
+        player.surfaces = surfaces;
         for (let i = 0; i < this.entities.length; i++)
         {
             this.entities[i].surfaces = surfaces;
@@ -35,7 +35,7 @@ class Level
     appendSurface(surface)
     {
         this.surfaces.push(surface);
-        this.player.surfaces.push(surface);
+        player.surfaces.push(surface);
         for (let i = 0; i < this.entities.length; i++)
         {
             this.entities[i].surfaces.push(surface);
@@ -130,7 +130,7 @@ class Camera
 
     moveX(amount)
     {
-        level.player.position.x += amount;
+        player.position.x += amount;
         level.goal.position.x += amount;
 
         for (let i = 0; i < level.surfaces.length; i++)
@@ -145,7 +145,7 @@ class Camera
 
     moveY(amount)
     {
-        level.player.position.y += amount;
+        player.position.y += amount;
         level.goal.position.y += amount;
         
         for (let i = 0; i < level.surfaces.length; i++)
@@ -189,7 +189,7 @@ class LevelGenerator
     constructor(difficulty)
     {
         this.difficulty = difficulty;
-        this.range = 7;
+        this.range = 10;
         this.canvas = document.getElementById("levelCanvas");
         this.ctx = this.canvas.getContext("2d");
         this.levelArray = [0];
