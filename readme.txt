@@ -1,3 +1,3 @@
-IMPORTANT NOTES: Game only works through Luna (basically only through a server).  Also, some level scenes are harder than others.
+IMPORTANT NOTES: Game only works through Luna (basically only through a server or when uploaded into a server).  Also, some level scenes are harder than others.  Game also works best on Chrome.
 
 We think our project is worth 100 points because we had to implement some fairly complex functionality.  Some of the more complex or difficult features was turning 20x20 pixel pngs into a level scene.  Other features that was a little tricky was also getting the turkey enemies to jump at random instances, having the player and turkey animate, and having the level "move" with respect to the player.  And this entire game was implemented with "vanilla" Javascript, so no other special libraries were used.  We also implemented cookies to save the high score of players. 
