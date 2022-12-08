@@ -207,7 +207,7 @@ class LevelGenerator
     randomLevel()
     {
         this.levelArray = [0];
-        for (let i = 0; i < (1+(this.difficulty*3)); i++)
+        for (let i = 0; i < (2+(this.difficulty*3)); i++)
         {
             let n = Math.ceil(Math.random() * this.range);
             this.levelArray.push(n);
