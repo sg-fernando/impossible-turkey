@@ -10,6 +10,7 @@
     </head>
     <body>
         <audio id="music1" src="intense1.mp3" loop="loop"></audio>
+        <audio id="music2" src="intense2.mp3" loop="loop"></audio>
         <nav class="nav" id="nav">
             <a href='index.html'  id='home'>Home</a>
         </nav>
@@ -40,7 +41,9 @@
         <script src="scripts/inputHandler.js"></script>
         <script>
         window.onload = function() {
-            document.getElementById("music1").play();
+            music_num = Math.floor(Math.random() * 2);
+            music_id = "music" + music_num;
+            document.getElementById(music_is).play();
         }
         </script>
     </body>
