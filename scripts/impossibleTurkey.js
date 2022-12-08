@@ -38,7 +38,7 @@ function play()
 {
 
     generator.getLevel();
-    document.getElementById("play");
+    document.getElementById("play").blur();
     level = generator.create();
 }
 
