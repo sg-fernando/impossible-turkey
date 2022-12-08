@@ -78,6 +78,8 @@ class MenuLevel extends Level
     update()
     {
         super.update()
+        ctx.font = "48px serif";
+        ctx.fillText("", 10, 50);
     }
 }
 
@@ -148,7 +150,7 @@ class LevelGenerator
     constructor(difficulty)
     {
         this.difficulty = difficulty;
-        this.range = 5;
+        this.range = 7;
         this.canvas = document.getElementById("levelCanvas");
         this.ctx = this.canvas.getContext("2d");
         this.levelArray = [0];
