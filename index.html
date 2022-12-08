@@ -9,7 +9,6 @@
     </head>
     <body>
         <div id="wrapper">
-            <div id="start">
             <header> 
                 <h1>Impossible Turkey<h1>
             </header>
@@ -33,63 +32,13 @@
                 A - Move left <br>
                 S - Move down <br>
                 D - Move right <br> <br>
-                Note: You can double jump by pressing W or Spacebar twice <br>
-                Another Note: Game works best on Chrome
+                Note: You can double jump by pressing W or Spacebar twice
             </p>
-            <button id="submit" onclick="toGame()">Play</button>
+            <form action="game.html">
+                <input type="submit" id="submit" value="Start"> 
+            </form>
             </div>
-            </div>
-            <div id="game">
-                <audio id="music1" src="intense1.mp3" loop="loop"></audio>
-                <audio id="music2" src="intense2.mp3" loop="loop"></audio>
-                <nav class="nav" id="nav">
-                    <a href='index.html'  id='home'>Home</a>
-                </nav>
-                <div id="wrapper">
-                    <header> 
-                        <h1>Escape the Lab!!!<h1>
-                    </header>
-                    
-                    <div id="main">
-                        <canvas id="gameCanvas" width="1200" height="600" style="border:1px solid #000000;"></canvas>
-                        <canvas id="levelCanvas" width="20" height="20" style="display: none;"></canvas>
-                        <div id="buttons">
-                            <button id="difficulty" onclick="difficulty(0)">Very Easy</button>
-                            <button id="difficulty" onclick="difficulty(1)">Easy</button>
-                            <button id="difficulty" onclick="difficulty(2)">Medium</button>
-                            <button id="difficulty" onclick="difficulty(4)">Hard</button>
-                            <button id="difficulty" onclick="difficulty(7)">Very Hard</button>
-                            <br>
-                            <br>
-                            <button id="play" onclick="play()">Play</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div id="gameover">
-                <nav class="nav" id="nav">
-                    <a href='index.html'  id='home'>Home</a>
-                </nav>
-                <div id="wrapper">
-                    <header> 
-                        <h1 id="dead">GAME OVER!<h1>
-                    </header>
-                    <button id="retry" onclick="toGame()">Retry</button>
-                    <!-- <form action="game.html">
-                        <input type="submit" id="retry" value="Retry"> 
-                    </form>    -->
-                    <div id="img">
-                        <img src="images/creepy.jpg" alt="You died.">
-                    </div>  
-                </div>
-                </div>
-                <script src="scripts/cookies.js"></script>
-                <script src="scripts/entities.js"></script>
-                <script src="scripts/environment.js"></script>
-                <script src="scripts/levels.js"></script>
-                <script src="scripts/turkevil.js"></script>
-                <script src="scripts/inputHandler.js"></script>
-                <script src="scripts/music.js"></script>
+            
             <footer>
                 <p>Cool Games</p>
             </footer>
