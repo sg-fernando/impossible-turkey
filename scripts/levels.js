@@ -280,8 +280,8 @@ class LevelGenerator
                     pixel[3] == 255
                 )
                 {
-                    let turkeySpeed = Math.ceil(Math.random() * (this.difficulty*1.5)+5);
-                    let turkeyJump = (Math.random() * (this.difficulty*1.5)) + 0.5;
+                    let turkeySpeed = Math.ceil(Math.random() * (this.difficulty)+6);
+                    let turkeyJump = (Math.random() * (this.difficulty)) + 0.75;
                     let turkey = new Turkey(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth), turkeySpeed, turkeyJump);
                     this.entities.push(turkey);
                 }
