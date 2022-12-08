@@ -7,6 +7,8 @@ class Level
         this.player = new Player(playerPosition);
         this.goal = new Goal(goalPosition);
 
+        this.play = true;
+
         this.camera = new Camera();
 
         this.player.surfaces = this.surfaces;
@@ -14,6 +16,8 @@ class Level
         {
             this.entities[i].surfaces = this.surfaces;
         }
+
+        this.lastScoreSubtraction = new Date();
     }
 
     setSurfaces(surfaces)
@@ -36,6 +40,24 @@ class Level
         }
     }
 
+    updateLevelScore()
+    {
+        let now = new Date();
+        if ((now - this.lastScoreSubtraction) < 1000)
+        {
+            return;
+        }
+        this.lastScoreSubtraction = new Date();
+        if (levelScore > 0)
+        {
+            levelScore -= 10;
+        }
+    }
+
+    showLevelScore()
+    {
+        ctx.fillText("Score: "+ levelScore, 10, 100);
+    }
     update()
     {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,7 +76,11 @@ class Level
         {
             this.surfaces[i].draw();
         }
-        
+        this.showLevelScore();
+        if (this.play)
+        {
+            this.updateLevelScore();
+        }
         this.player.showLives();
         this.camera.update();
     }
@@ -73,13 +99,15 @@ class MenuLevel extends Level
             new Brick(new Vector(500+65+65+65+65,375))
         ];
         super(new Vector(500+65+65,0), new Vector(-1000,0), s, e);
+        this.play = false;
     }
 
     update()
     {
         super.update()
         ctx.font = "48px serif";
-        ctx.fillText("", 10, 50);
+        ctx.fillText("Main Menu", canvas.width/2-125, 50);
+        ctx.fillText("High Score: "+ score, 10, 150);
     }
 }
 
@@ -244,6 +272,16 @@ class LevelGenerator
                     let turkey = new Turkey(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth), turkeySpeed, turkeyJump);
                     this.entities.push(turkey);
                 }
+                else if (
+                    pixel[0] == 30 &&
+                    pixel[1] == 230 && 
+                    pixel[2] == 86 &&
+                    pixel[3] == 255
+                )
+                {
+                    let key = new ExtraPoints(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth));
+                    this.entities.push(key);
+                }
             }
         }
     }
@@ -251,6 +289,7 @@ class LevelGenerator
     {
         let doorX = this.levelArray.length*this.canvas.width*this.brickWidth;
         let doorY = (this.canvas.width/2)*this.brickWidth-100;
+        levelScore = this.levelArray.length*200;
         return new Level(new Vector(100, 0), new Vector(doorX,doorY), this.surfaces, this.entities);
     }
     

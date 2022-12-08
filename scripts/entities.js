@@ -219,7 +219,6 @@ class Player extends Movable
     loseLife()
     {
         let now = new Date();
-        console.log(now - this.lastHit);
         if ((now - this.lastHit) < 2500)
         {
             return;
@@ -303,7 +302,7 @@ class Goal extends Entity
     constructor(position)
     {
         super(position, "images/door.png", 80, 100);
-        let offset = 50
+        let offset = 10
         this.collision = new CollisionBox(
             new Vector(this.position.x + offset, this.position.y + offset), 
             this.width-(offset*2), 
@@ -315,12 +314,48 @@ class Goal extends Entity
     {
         if (this.collision.collides(player))
         {
-            console.log("GOAL");
+            if (score < levelScore)
+            {
+                score = levelScore;
+            }
+            level = new MenuLevel();
         }
     }
 
     update()
     {
+        this.collision.updatePosition(this.position);
+        this.draw();
+        this.checkGoal();
+    }
+}
+
+class ExtraPoints extends Entity
+{
+    constructor(position)
+    {
+        super(position, "images/key.png", 50, 50);
+        let offset = 10
+        this.collision = new CollisionBox(
+            new Vector(this.position.x + offset, this.position.y + offset), 
+            this.width-(offset*2), 
+            this.height-(offset*2)
+        );
+    }
+
+    checkGoal()
+    {
+        if (this.collision.collides(player))
+        {
+            console.log("points");
+            levelScore += 300;
+            this.position.y += 2000;
+        }
+    }
+
+    update()
+    {
+        this.collision.updatePosition(this.position);
         this.draw();
         this.checkGoal();
     }
