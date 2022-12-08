@@ -42,6 +42,13 @@ function play()
     level = generator.create();
 }
 
+function toGame()
+{
+    document.getElementById("game").style.display = "block";
+    document.getElementById("start").style.display = "none";
+    document.getElementById("gameover").style.display = "none";
+}
+
 // first call
 update();
 difficulty(0);
