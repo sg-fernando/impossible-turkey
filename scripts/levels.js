@@ -92,6 +92,8 @@ class Level
         {
             this.updateLevelScore();
         }
+
+        this.checkFall();
         player.showLives();
         this.camera.update();
     }
