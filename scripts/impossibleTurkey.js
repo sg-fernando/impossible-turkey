@@ -18,9 +18,6 @@ function update()
     // update canvas
     requestAnimationFrame(update);
 }
-// first call
-update();
-
 function difficulty(difficulty)
 {
     generator.difficulty = difficulty;
@@ -33,3 +30,7 @@ function play()
     generator.getLevel();
     level = generator.create();
 }
+
+// first call
+update();
+difficulty(0);

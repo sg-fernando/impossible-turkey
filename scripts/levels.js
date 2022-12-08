@@ -148,7 +148,7 @@ class LevelGenerator
     constructor(difficulty)
     {
         this.difficulty = difficulty;
-        this.range = 6
+        this.range = 5;
         this.canvas = document.getElementById("levelCanvas");
         this.ctx = this.canvas.getContext("2d");
         this.levelArray = [0];
@@ -166,7 +166,7 @@ class LevelGenerator
         this.levelArray = [0];
         for (let i = 0; i < (1+(this.difficulty*5)); i++)
         {
-            let n = Math.floor(Math.random() * this.range);
+            let n = Math.ceil(Math.random() * this.range);
             this.levelArray.push(n);
         }
     }
@@ -183,7 +183,8 @@ class LevelGenerator
         for (let i = 0; i < this.levelArray.length; i++)
         {
             let img = this.imgs[i];
-            img.onload = ()=>{
+            img.onload = ()=>
+            {
                 this.ctx.drawImage(img, 0, 0);
                 let pixels = [];
                 for (let x = 0; x < this.canvas.width; x++)
@@ -207,12 +208,13 @@ class LevelGenerator
 
     getLevel()
     {
+        let xOffset = 0;
         this.surfaces = [];
         this.entities = [];
         for (let i = 0; i < this.data.length; i++)
         {
-            let xOffset = i*this.brickWidth*this.canvas.width;
-            console.log(xOffset);
+            xOffset = i*this.brickWidth*this.canvas.width;
+            // console.log(xOffset);
             for (let j = 0; j < this.data[i].length; j++)
             {
                 let x = this.data[i][j].x;
@@ -223,6 +225,7 @@ class LevelGenerator
                     pixel[1] == pixel[2] &&
                     pixel[3] == 255)
                 {
+                    // console.log(xOffset+(x*this.brickWidth));
                     let brick = new Brick(new Vector(xOffset+(x*this.brickWidth), y*this.brickWidth));
                     this.surfaces.push(brick);
                 }
@@ -231,7 +234,9 @@ class LevelGenerator
     }
     create()
     {
-        return new Level(new Vector(100, 0), new Vector(0,0), this.surfaces, this.entities);
+        let doorX = this.levelArray.length*this.canvas.width*this.brickWidth;
+        let doorY = (this.canvas.width/2)*this.brickWidth-100;
+        return new Level(new Vector(100, 0), new Vector(doorX,doorY), this.surfaces, this.entities);
     }
     
 }
