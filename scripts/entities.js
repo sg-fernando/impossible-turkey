@@ -237,7 +237,8 @@ class Player extends Movable
     gameOver()
     {
         // TODO game over
-        level = new MenuLevel();
+        //level = new MenuLevel();
+        window.location.href = 'gameover.html';
     }
 }
 
