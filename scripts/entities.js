@@ -323,6 +323,7 @@ class Goal extends Entity
             if (score < levelScore)
             {
                 score = levelScore;
+                setCookie("highscore",score,365);
             }
             level = new MenuLevel();
         }
