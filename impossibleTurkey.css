@@ -157,3 +157,14 @@ nav a:hover, #play{
     font-size: xx-large;
     margin-bottom: 10px;
 }
+
+#difficulty {
+    background-color: rgb(225, 0, 255);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 5%;
+    font-size: x-large;
+    margin-bottom: 5px;
+}
