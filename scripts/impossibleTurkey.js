@@ -3,6 +3,8 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+const epoch = new Date('July 20, 69 20:17:40 GMT+00:00');
+
 var gravity = 1;
 var player;
 var level;

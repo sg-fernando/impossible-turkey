@@ -267,7 +267,7 @@ class Turkey extends Movable
         {
             this.vx = 0;
         }
-        if (Date.getTime() % 5000 == 0)
+        if (Date.getTime() % this.jumpInterval == 0)
         {
             this.jump();
         }
