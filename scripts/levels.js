@@ -7,7 +7,7 @@ class Level
         new Player(playerPosition);
         this.goal = new Goal(goalPosition);
 
-        this.fallLimit = new Brick(0,21*80);
+        this.surfaces.push(new Brick(0,21*80)); //fall limit
 
         this.play = true;
 
@@ -63,7 +63,7 @@ class Level
 
     checkFall()
     {
-        if (player.position.y > this.fallLimit.position.y)
+        if (player.position.y > this.surfaces[this.surfaces.length-1].position.y)
         {
             player.gameOver();
         }
@@ -132,7 +132,6 @@ class Camera
     {
         player.position.x += amount;
         level.goal.position.x += amount;
-        level.fallLimit.position.x += amount;
 
         for (let i = 0; i < level.surfaces.length; i++)
         {
@@ -148,7 +147,6 @@ class Camera
     {
         player.position.y += amount;
         level.goal.position.y += amount;
-        level.fallLimit.position.y += amount;
         
         for (let i = 0; i < level.surfaces.length; i++)
         {
