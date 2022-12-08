@@ -223,7 +223,7 @@ class Player extends Movable
         {
             return;
         }
-        if (this.lives > 0)
+        if (this.lives > 1)
         {
             this.lives--;
             this.hit();
