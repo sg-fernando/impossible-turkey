@@ -102,7 +102,7 @@ form {
     margin-bottom: 20px;
 }
 
-#submit:hover, #retry:hover {
+#submit:hover, #retry:hover, #play:hover {
     background-color: #ff9408;
 }
 
