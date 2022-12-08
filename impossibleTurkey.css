@@ -102,7 +102,7 @@ form {
     margin-bottom: 20px;
 }
 
-#submit:hover, #retry:hover {
+#submit:hover, #retry:hover, #play:hover {
     background-color: #ff9408;
 }
 
@@ -143,6 +143,17 @@ nav a:link, nav a:visited, nav a:hover, nav a:active {
     text-decoration: none;
 }
 
-nav a:hover {
+nav a:hover, #play{
     background-color: #ff9408;
+}
+
+#play {
+    background-color: rgb(68, 255, 0);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 20%;
+    font-size: xx-large;
+    margin-bottom: 20px;
 }
