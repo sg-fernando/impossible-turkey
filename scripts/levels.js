@@ -132,6 +132,7 @@ class Camera
     {
         player.position.x += amount;
         level.goal.position.x += amount;
+        level.fallLimit.position.x += amount;
 
         for (let i = 0; i < level.surfaces.length; i++)
         {
@@ -147,6 +148,7 @@ class Camera
     {
         player.position.y += amount;
         level.goal.position.y += amount;
+        level.fallLimit.position.y += amount;
         
         for (let i = 0; i < level.surfaces.length; i++)
         {
