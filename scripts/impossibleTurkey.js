@@ -36,7 +36,9 @@ function difficulty(difficulty)
 
 function play()
 {
+
     generator.getLevel();
+    document.getElementById("play");
     level = generator.create();
 }
 
