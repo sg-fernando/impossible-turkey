@@ -4,8 +4,10 @@ class Level
     {
         this.surfaces = surfaces;
         this.entities = entities;
-        this.player = new Player(playerPosition);
+        new Player(playerPosition);
         this.goal = new Goal(goalPosition);
+
+        this.fallLimit = new Brick(0,21*80);
 
         this.play = true;
 
@@ -58,13 +60,22 @@ class Level
     {
         ctx.fillText("Score: "+ levelScore, 10, 100);
     }
+
+    checkFall()
+    {
+        if (player.position.y > this.fallLimit.position.y)
+        {
+            player.gameOver();
+        }
+    }
+
     update()
     {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         this.goal.update();
         
-        this.player.update();
+        player.update();
         
         
         for (let i = 0; i < this.entities.length; i++)
@@ -81,7 +92,7 @@ class Level
         {
             this.updateLevelScore();
         }
-        this.player.showLives();
+        player.showLives();
         this.camera.update();
     }
 }
@@ -93,12 +104,12 @@ class MenuLevel extends Level
         let e = [];
         let s = [
             new Brick(new Vector(500,375)),
-            new Brick(new Vector(500+65,375)),
-            new Brick(new Vector(500+65+65,375)),
-            new Brick(new Vector(500+65+65+65,375)),
-            new Brick(new Vector(500+65+65+65+65,375))
+            new Brick(new Vector(500+80,375)),
+            new Brick(new Vector(500+80+80,375)),
+            new Brick(new Vector(500+80+80+80,375)),
+            new Brick(new Vector(500+80+80+80+80,375))
         ];
-        super(new Vector(500+65+65,0), new Vector(-1000,0), s, e);
+        super(new Vector(500+80+80,0), new Vector(-1000,0), s, e);
         this.play = false;
     }
 

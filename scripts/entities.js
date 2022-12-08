@@ -230,9 +230,14 @@ class Player extends Movable
         }
         else
         {
-            // TODO game over
-            console.log("game over");
+            this.gameOver();
         }
+    }
+    
+    gameOver()
+    {
+        // TODO game over
+        level = new MenuLevel();
     }
 }
 
