@@ -1,3 +1,8 @@
+const keys = {
+    KeyD: false,
+    KeyA: false,
+    KeyS: false
+};
 
 class Vector
 {
@@ -161,7 +166,6 @@ class Movable extends Entity
 
     move()
     {
-        // FIXME dampening occurs at end of jump
         if (this.surfaceCollision(this.position.x + this.vx, this.position.y))
         {
             this.vx = 0;
@@ -198,6 +202,21 @@ class Player extends Movable
         this.lives = 3;
         this.lastHit = new Date();
         player = this;
+        this.invincibleDuration = 2500;
+        this.hitFlash = false;
+        this.hitFlashTime = 0;
+    }
+
+    move()
+    {
+        super.move();
+        if (keys["KeyD"]) {
+            player.vx = player.step;
+        } else if (keys["KeyA"]) {
+            player.vx = -player.step;
+        } else {
+            player.vx = 0;
+        }
     }
 
     canJump()
@@ -217,12 +236,14 @@ class Player extends Movable
     {
         this.vy = -15;
         this.lastHit = new Date();
+        this.hitFlash = true;
+        this.hitFlashTime = performance.now();
     }
 
     loseLife()
     {
         let now = new Date();
-        if ((now - this.lastHit) < 2500)
+        if ((now - this.lastHit) < this.invincibleDuration)
         {
             return;
         }
@@ -239,7 +260,6 @@ class Player extends Movable
     
     gameOver()
     {
-        // TODO game over
         //level = new MenuLevel();
         window.location.href = 'gameover.html';
     }
@@ -250,9 +270,6 @@ class Turkey extends Movable
     constructor(position, step, jump)
     {
         super(position, "images/turkey.png", 60, 60, 2, step, jump);
-        // TODO 
-        // flip turkey on turn
-        // change animation for feet to reach bottom
         this.moveAnimation = new SpriteAnimation("turkey-moving", [1,9], true)
         this.direction = 1;
         this.vx = 0;

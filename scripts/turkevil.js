@@ -26,6 +26,20 @@ function update()
     level.update();
     // update canvas
     requestAnimationFrame(update);
+    if (player.hitFlash)
+    {
+        const now = performance.now();
+        const flashDuration = 200;
+        if (now - player.hitFlashTime < flashDuration)
+        {
+            ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        else
+        {
+            player.hitFlash = false;
+        }
+    }
 }
 function difficulty(difficulty)
 {
